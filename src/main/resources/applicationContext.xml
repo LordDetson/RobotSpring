@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true"
+        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="by.babanin.impl.toshiba.ToshibaHead" name="toshibaHead"/>
+    <bean class="by.babanin.impl.toshiba.ToshibaHand" name="toshibaHand"/>
+    <bean class="by.babanin.impl.toshiba.ToshibaLeg" name="toshibaLeg"/>
+    <bean class="by.babanin.impl.sony.SonyHead" name="sonyHead"/>
+    <bean class="by.babanin.impl.sony.SonyHand" name="sonyHand"/>
+    <bean class="by.babanin.impl.sony.SonyLeg" name="sonyLeg"/>
+
+    <bean class="by.babanin.impl.robot.ModelT1000" id="t1000" depends-on="toshibaHead, sonyHand, toshibaLeg">
+        <constructor-arg index="0" ref="toshibaHead"/>
+        <constructor-arg index="1" ref="sonyHand"/>
+        <constructor-arg index="2" ref="toshibaLeg"/>
+    </bean>
+
+    <bean class="by.babanin.impl.robot.ModelT1000" id="modelT1000" parent="t1000">
+        <property name="hand" ref="toshibaHand"/>
+    </bean>
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:constant.properties</value>
+            </list>
+        </property>
+    </bean>
+</beans>
