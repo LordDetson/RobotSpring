@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans default-lazy-init="true"
-        xmlns="http://www.springframework.org/schema/beans"
+       xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       xmlns:c="http://www.springframework.org/schema/c" xmlns:context="http://www.springframework.org/schema/util">
 
-    <bean class="by.babanin.impl.toshiba.ToshibaHead" name="toshibaHead"/>
-    <bean class="by.babanin.impl.toshiba.ToshibaHand" name="toshibaHand"/>
-    <bean class="by.babanin.impl.toshiba.ToshibaLeg" name="toshibaLeg"/>
-    <bean class="by.babanin.impl.sony.SonyHead" name="sonyHead"/>
-    <bean class="by.babanin.impl.sony.SonyHand" name="sonyHand"/>
-    <bean class="by.babanin.impl.sony.SonyLeg" name="sonyLeg"/>
+    <import resource="model.xml"/>
 
-    <bean class="by.babanin.impl.robot.ModelT1000" id="t1000" depends-on="toshibaHead, sonyHand, toshibaLeg">
-        <constructor-arg index="0" ref="toshibaHead"/>
-        <constructor-arg index="1" ref="sonyHand"/>
-        <constructor-arg index="2" ref="toshibaLeg"/>
+    <bean class="by.babanin.ActionReplacer" name="actionReplacer"/>
+
+    <bean class="by.babanin.impl.robot.ModelT1000" id="t1000" scope="prototype" autowire="byType">
+        <property name="name" value="t1000"/>
+        <property name="color" value="black"/>
+        <property name="year" value="2006"/>
+        <property name="soundEnabled" value="true"/>
+        <replaced-method name="action" replacer="actionReplacer"/>
     </bean>
 
-    <bean class="by.babanin.impl.robot.ModelT1000" id="modelT1000" parent="t1000">
-        <property name="hand" ref="toshibaHand"/>
+    <bean class="by.babanin.impl.robot.ModelT1000" id="modelT1000" parent="t1000" autowire="byType">
+        <property name="name" value="modelT1000"/>
+        <property name="hand" ref="sonyHand"/>
+        <property name="soundEnabled" value="false"/>
+        <property name="year" value="2017"/>
     </bean>
+
+    <bean class="by.babanin.impl.robot.ModelT1000Factory" id="modelT1000Factory">
+        <lookup-method name="create" bean="t1000"/>
+    </bean>
+
+    <context:map id="robots">
+        <entry key="#{t1000.year}" value-ref="t1000"/>
+        <entry key="#{modelT1000.year}" value-ref="modelT1000"/>
+    </context:map>
+    <bean class="by.babanin.impl.robot.ModelT1000Pool" id="modelT1000Pool" autowire="constructor"/>
 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="locations">
@@ -29,4 +42,9 @@
             </list>
         </property>
     </bean>
+
+    <bean class="org.slf4j.LoggerFactory" id="loggerFactory"/>
+
+    <bean class="by.babanin.MyBeanPostProcessor" id="beanPostProcessor"
+          c:logger="#{loggerFactory.getLogger('beanPostProcessor')}"/>
 </beans>
