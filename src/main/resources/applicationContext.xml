@@ -3,10 +3,14 @@
        xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
-       xmlns:c="http://www.springframework.org/schema/c" xmlns:context="http://www.springframework.org/schema/util">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:c="http://www.springframework.org/schema/c" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context">
 
-    <import resource="model.xml"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="by.babanin"/>
+
+    <!--<import resource="model.xml"/>
 
     <bean class="by.babanin.ActionReplacer" name="actionReplacer"/>
 
@@ -29,10 +33,10 @@
         <lookup-method name="create" bean="t1000"/>
     </bean>
 
-    <context:map id="robots">
+    <util:map id="robots">
         <entry key="#{t1000.year}" value-ref="t1000"/>
         <entry key="#{modelT1000.year}" value-ref="modelT1000"/>
-    </context:map>
+    </util:map>
     <bean class="by.babanin.impl.robot.ModelT1000Pool" id="modelT1000Pool" autowire="constructor"/>
 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
@@ -46,5 +50,5 @@
     <bean class="org.slf4j.LoggerFactory" id="loggerFactory"/>
 
     <bean class="by.babanin.MyBeanPostProcessor" id="beanPostProcessor"
-          c:logger="#{loggerFactory.getLogger('beanPostProcessor')}"/>
+          c:logger="#{loggerFactory.getLogger('beanPostProcessor')}"/>-->
 </beans>

@@ -6,9 +6,15 @@ import by.babanin.interfaces.Head;
 import by.babanin.interfaces.Leg;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.StringJoiner;
 
+@Component
+@Lazy
 public class ModelT1000 extends BaseModel implements InitializingBean, DisposableBean {
     private String name;
     private String color;
@@ -18,7 +24,12 @@ public class ModelT1000 extends BaseModel implements InitializingBean, Disposabl
     public ModelT1000() {
     }
 
-    public ModelT1000(Head head, Hand hand, Leg leg) {
+    @Autowired
+    public ModelT1000(
+            @Qualifier("toshiba")Head head,
+            @Qualifier("toshiba")Hand hand,
+            @Qualifier("toshiba")Leg leg
+    ) {
         super(head, hand, leg);
     }
 
@@ -43,7 +54,9 @@ public class ModelT1000 extends BaseModel implements InitializingBean, Disposabl
     }
 
     @Override
+
     public void action() {
+        System.out.println("name: " + this.getName());
         if (haveHeadHandLeg()) {
             getHead().calc();
             getHand().catchSomething();

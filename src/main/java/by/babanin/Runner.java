@@ -28,9 +28,12 @@ public class Runner {
         modelT1000.action();
 
         RobotFactory robotFactory = ac.getBean("modelT1000Factory", ModelT1000Factory.class);
-        Robot terminator1 = robotFactory.create();
-        Robot terminator2 = robotFactory.create();
-        Robot terminator3 = robotFactory.create();
+        ModelT1000 terminator1 = (ModelT1000) robotFactory.create();
+        ModelT1000 terminator2 = (ModelT1000) robotFactory.create();
+        ModelT1000 terminator3 = (ModelT1000) robotFactory.create();
+        terminator1.setName("terminator1");
+        terminator2.setName("terminator2");
+        terminator3.setName("terminator3");
         System.out.println("terminator1");
         terminator1.action();
         System.out.println("terminator2");

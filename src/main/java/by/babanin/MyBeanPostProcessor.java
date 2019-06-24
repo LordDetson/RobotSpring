@@ -3,7 +3,9 @@ package by.babanin;
 import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
     private Logger logger;
 

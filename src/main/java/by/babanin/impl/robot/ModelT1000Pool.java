@@ -2,9 +2,13 @@ package by.babanin.impl.robot;
 
 import by.babanin.interfaces.Robot;
 import by.babanin.interfaces.RobotPool;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
+@Lazy
 public class ModelT1000Pool implements RobotPool {
     Map<Integer, Robot> robots;
 
