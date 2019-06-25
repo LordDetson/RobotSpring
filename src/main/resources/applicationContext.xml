@@ -9,25 +9,26 @@
        xmlns:aop="http://www.springframework.org/schema/aop">
 
     <context:annotation-config/>
-    <context:component-scan base-package="by.babanin"/>
+    <context:component-scan base-package="by.babanin.example1"/>
+    <aop:aspectj-autoproxy/>
 
-    <aop:config>
+    <!--<aop:config>
         <aop:aspect id="logActionRobot" ref="loggerAspect">
-            <aop:pointcut id="robotAction" expression="execution(* by.babanin.interfaces.Robot.action())"/>
+            <aop:pointcut id="robotAction" expression="execution(* by.babanin.example1.interfaces.Robot.action())"/>
             <aop:before method="logBefore" pointcut-ref="robotAction"/>
             <aop:after method="logAfter" pointcut-ref="robotAction"/>
             <aop:after-throwing method="logAfterThrow" throwing="ex" pointcut-ref="robotAction"/>
             <aop:around method="watchTime" pointcut-ref="robotAction"/>
-            <aop:around method="watchTime" pointcut="execution(* by.babanin.interfaces.RobotFactory.*(..))"/>
-            <aop:around method="watchTime" pointcut="execution(* by.babanin.interfaces.RobotPool.*(..))"/>
+            <aop:around method="watchTime" pointcut="execution(* by.babanin.example1.interfaces.RobotFactory.*(..))"/>
+            <aop:around method="watchTime" pointcut="execution(* by.babanin.example1.interfaces.RobotPool.*(..))"/>
         </aop:aspect>
-    </aop:config>
+    </aop:config>-->
 
     <!--<import resource="model.xml"/>
 
-    <bean class="by.babanin.ActionReplacer" name="actionReplacer"/>
+    <bean class="by.babanin.example1.ActionReplacer" name="actionReplacer"/>
 
-    <bean class="by.babanin.impl.robot.ModelT1000" id="t1000" scope="prototype" autowire="byType">
+    <bean class="by.babanin.example1.impl.robot.ModelT1000" id="t1000" scope="prototype" autowire="byType">
         <property name="name" value="t1000"/>
         <property name="color" value="black"/>
         <property name="year" value="2006"/>
@@ -35,14 +36,14 @@
         <replaced-method name="action" replacer="actionReplacer"/>
     </bean>
 
-    <bean class="by.babanin.impl.robot.ModelT1000" id="modelT1000" parent="t1000" autowire="byType">
+    <bean class="by.babanin.example1.impl.robot.ModelT1000" id="modelT1000" parent="t1000" autowire="byType">
         <property name="name" value="modelT1000"/>
         <property name="hand" ref="sonyHand"/>
         <property name="soundEnabled" value="false"/>
         <property name="year" value="2017"/>
     </bean>
 
-    <bean class="by.babanin.impl.robot.ModelT1000Factory" id="modelT1000Factory">
+    <bean class="by.babanin.example1.impl.robot.ModelT1000Factory" id="modelT1000Factory">
         <lookup-method name="create" bean="t1000"/>
     </bean>
 
@@ -50,7 +51,7 @@
         <entry key="#{t1000.year}" value-ref="t1000"/>
         <entry key="#{modelT1000.year}" value-ref="modelT1000"/>
     </util:map>
-    <bean class="by.babanin.impl.robot.ModelT1000Pool" id="modelT1000Pool" autowire="constructor"/>
+    <bean class="by.babanin.example1.impl.robot.ModelT1000Pool" id="modelT1000Pool" autowire="constructor"/>
 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="locations">
@@ -62,6 +63,6 @@
 
     <bean class="org.slf4j.LoggerFactory" id="loggerFactory"/>
 
-    <bean class="by.babanin.MyBeanPostProcessor" id="beanPostProcessor"
+    <bean class="by.babanin.example1.MyBeanPostProcessor" id="beanPostProcessor"
           c:logger="#{loggerFactory.getLogger('beanPostProcessor')}"/>-->
 </beans>
