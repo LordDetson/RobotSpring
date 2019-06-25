@@ -21,7 +21,8 @@ public class ModelT1000Pool implements RobotPool {
         return robots;
     }
 
+    @Override
     public void action() {
-        robots.forEach((integer, robot) -> robot.action());
+        getRobots().forEach((integer, robot) -> robot.action());
     }
 }

@@ -8,21 +8,23 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@Lazy
 public class AppConfig {
-    public Logger logger;
-
     @Bean
+    @Lazy
     public Logger logger() {
         return LoggerFactory.getLogger("logger");
     }
 
     @Bean
+    @Lazy
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     public Robot t1000(
             @Qualifier("sony") Head head,
@@ -32,19 +34,14 @@ public class AppConfig {
     }
 
     @Bean
+    @Lazy
     public Map<Integer, Robot> robots(RobotFactory robotFactory) {
         Map<Integer, Robot> robots = new HashMap<>();
         Robot robot = robotFactory.create();
-        if (robot instanceof ModelT1000) {
-            ModelT1000 modelT1000 = (ModelT1000) robot;
-            modelT1000.setYear(2005);
-            robots.put(modelT1000.getYear(), robot);
-        }
+        robot.setYear(2005);
+        robots.put(robot.getYear(), robot);
         robot = robotFactory.create();
-        if (robot instanceof ModelT1000) {
-            ModelT1000 modelT1000 = (ModelT1000) robot;
-            robots.put(modelT1000.getYear(), robot);
-        }
+        robots.put(robot.getYear(), robot);
         return robots;
     }
 }

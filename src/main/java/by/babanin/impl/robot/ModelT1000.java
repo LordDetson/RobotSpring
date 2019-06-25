@@ -62,6 +62,9 @@ public class ModelT1000 extends BaseModel implements InitializingBean, Disposabl
             getHand().catchSomething();
             getLeg().go();
         }
+        System.out.println("color: " + this.getColor());
+        System.out.println("year: " + this.getYear());
+        System.out.println("soundEnabled: " + this.isSoundEnabled());
     }
 
     @Override
@@ -73,6 +76,7 @@ public class ModelT1000 extends BaseModel implements InitializingBean, Disposabl
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -85,10 +89,12 @@ public class ModelT1000 extends BaseModel implements InitializingBean, Disposabl
         this.color = color;
     }
 
+    @Override
     public int getYear() {
         return year;
     }
 
+    @Override
     public void setYear(int year) {
         this.year = year;
     }
