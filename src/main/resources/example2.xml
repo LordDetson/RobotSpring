@@ -10,7 +10,10 @@
     <aop:config proxy-target-class="true">
         <aop:aspect id="log" ref="loggerAspect">
             <aop:around method="watchTime" pointcut="execution(public * *(..)) and @annotation(by.babanin.example2.ShowTime)"/>
-            <aop:after-returning method="print" returning="obj" pointcut="execution(public * *(..)) and @annotation(by.babanin.example2.ShowResult)"/>
+            <aop:after-returning method="printMap" returning="o"
+                                 pointcut="execution(public java.util.Map *(..)) and @annotation(by.babanin.example2.ShowResult)"/>
+            <aop:after-returning method="printSet" returning="o"
+                                 pointcut="execution(public java.util.Set *(..)) and @annotation(by.babanin.example2.ShowResult)"/>
         </aop:aspect>
     </aop:config>
 </beans>

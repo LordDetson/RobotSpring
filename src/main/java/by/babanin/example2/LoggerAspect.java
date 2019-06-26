@@ -29,20 +29,24 @@ public class LoggerAspect {
         return output;
     }
 
-    public void print(Object obj) {
+    public void printMap(Object o) {
         System.out.println("Print info begin >>");
 
-        if (obj instanceof Set) {
-            Set set = (Set) obj;
-            for (Object object : set) {
-                System.out.println(object);
-            }
+        Map map = (Map) o;
+        for (Object object : map.keySet()) {
+            System.out.println("key=" + object + ", " + map.get(object));
+        }
 
-        } else if (obj instanceof Map) {
-            Map map = (Map) obj;
-            for (Object object : map.keySet()) {
-                System.out.println("key=" + object + ", " + map.get(object));
-            }
+        System.out.println("Print info end <<");
+        System.out.println();
+    }
+
+    public void printSet(Object o) {
+        System.out.println("Print info begin >>");
+
+        Set set = (Set) o;
+        for (Object object : set) {
+            System.out.println(object);
         }
 
         System.out.println("Print info end <<");
