@@ -14,4 +14,8 @@
         <property name="username" value=""/>
         <property name="password" value=""/>
     </bean>
+
+    <bean id="logger" class="org.slf4j.LoggerFactory" factory-method="getLogger">
+        <constructor-arg name="name" value="logger"/>
+    </bean>
 </beans>
